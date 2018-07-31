@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Vue</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
+    }
+  </style>
+</head>
+<body>
+    <div id="example">
+        <p>Original message: "{{ message }}"</p>
+        <p>Computed reversed message: "{{ reversedMessage }}"</p>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                message: 'Hello'
+            },
+            computed: {
+                // 计算属性的 getter
+                reversedMessage: function () {
+                    // `this` 指向 vm 实例
+                    return this.message.split('').reverse().join('')
+                }
+            }
+          })
+    </script>
+  <div id="app">
+    <!-- <img src="https://vuejs.org/images/logo.png" alt="Vue logo"> -->
+    <h1>{{ greeting }}</h1>
+    <ul>
+      <li>
+        To learn more about Vue, visit
+        <a :href="docsURL" target="_blank">
+          {{ humanizeURL(docsURL) }}
+        </a>
+      </li>
+      <li>
+        For live help with simple questions, check out
+        <a :href="discordURL" target="_blank">
+          the Discord chat
+        </a>
+      </li>
+      <li>
+        For more complex questions, post to
+        <a :href="forumURL" target="_blank">
+          the forum
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div id="app-2">
+      <transition name="fade">
+          <p v-if="seen">现在你看到我了</p>
+      </transition> 
+  </div>
+  <div id="app-3">
+      <ol>
+          <li v-for="todo in todos">
+              {{ todo.text }}
+          </li>
+      </ol>
+  </div>
+  <div id="app-5">
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">逆转消息</button>
+  </div>
+  <div id="app-6">
+    <p>{{ message }}</p>
+    <input v-model="message">
+  </div>
+
+  <div id="app-7">
+    <ol>
+      <!--
+        现在我们为每个 todo-item 提供 todo 对象
+        todo 对象是变量，即其内容可以是动态的。
+        我们也需要为每个组件提供一个“key”，稍后再
+        作详细解释。
+      -->
+      <todo-item
+        v-for="item in groceryList"
+        v-bind:todo="item"
+        v-bind:key="item.id">
+      </todo-item>
+    </ol>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        greeting: 'Welcome to your Vue.js app change!',
+        docsURL: 'http://vuejs.org/guide/',
+        discordURL: 'https://chat.vuejs.org',
+        forumURL: 'http://forum.vuejs.org/'
+      },
+      methods: {
+        humanizeURL: function (url) {
+          return url
+            .replace(/^https?:\/\//, '')
+            .replace(/\/$/, '')
+        }
+      }
+    })
+
+    var app2 = new Vue({
+        el: '#app-2',
+        data: {
+          seen: true,
+        }
+    })
+
+    var app3 = new Vue({
+        el: '#app-3',
+        data: {
+           todos: [
+            { text: '学习 JavaScript' },
+            { text: '学习 Vue' },
+            { text: '整个牛项目' }
+          ]
+        }
+    })
+
+    var app5 = new Vue({
+      el: '#app-5',
+      data: {
+        message: 'Hello Vue.js!'
+      },
+      methods: {
+        reverseMessage: function () {
+          this.message = this.message.split('').reverse().join('')
+        }
+      }
+    })
+
+    var app6 = new Vue({
+      el: '#app-6',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+
+    Vue.component('todo-item', {
+      props: ['todo'],
+      template: '<li>{{ todo.text }}</li>'
+    })
+    var app7 = new Vue({
+      el: '#app-7',
+      data: {
+        groceryList: [
+          { id: 0, text: '蔬菜' },
+          { id: 1, text: '奶酪' },
+          { id: 2, text: '随便其它什么人吃的东西' }
+        ]
+      }
+    })
+  </script>
+</body>
+</html>
