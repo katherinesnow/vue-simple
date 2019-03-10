@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Vue</title>
+    <script src="https://vuejs.org/js/vue.js"></script>
+</head>
+<body>
+    <div id="app-1">
+        <!-- <ul v-if="items.length ">
+            <li v-for="item in items">{{ item.name }} | {{ item.desc }}</li>
+        </ul>
+        <p v-else>No items found.</p> -->
+    </div>
+    <script type="text/javascript">
+        Vue.config.devtools = true
+
+        var app = new Vue({
+            el: '#app-1',
+            data: {
+                items: [{
+                    name: '苹果',
+                    desc: '可口香甜',
+                }, {
+                    name: '香蕉',
+                    desc: '排毒美容',
+                }]
+            },
+            render: function (createElement) {
+                if (this.items.length) {
+                    return createElement('ul', this.items.map(function (item) {
+                      return createElement('li', item.name)
+                    }))
+                } else {
+                    return createElement('p', 'No items found.')
+                }
+            }
+        })
+    </script>
+</body>
